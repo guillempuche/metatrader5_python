@@ -1,15 +1,35 @@
 # 🐍 Entorno reproducible para MetaTrader5 con Python 3.8
 
-Este proyecto permite ejecutar scripts en Python que se conectan con MetaTrader 5, con un entorno controlado, sin conflictos de dependencias ni configuraciones manuales complicadas.
+## 🖥️ Paso previo: Preparar WSL en Windows
 
-Está pensado para que personas sin experiencia en programación puedan usarlo fácilmente.
+1. Abre el menú de Windows y busca **"Características de Windows"**.
+2. Activa la opción **"Subsistema de Windows para Linux (WSL)"**.
+3. Reinicia tu equipo si es necesario.
+4. Ve a la Microsoft Store, busca **Ubuntu** e instálalo.
+5. Abre Ubuntu desde el menú Inicio y deja que termine la configuración inicial.
 
 ## ✅ Requisitos previos
 
 - Un PC con **Windows 10 o 11**
 - Tener instalado **MetaTrader 5**
 
-## 📁 Paso 1: Descargar este proyecto
+## 🟦 Paso 1: Instalar Nix en Windows
+
+Antes de continuar, necesitas instalar Nix en tu PC con Windows. La forma más sencilla y recomendada es usando **Determinate Nix**.
+
+1. Abre una terminal (por ejemplo, Ubuntu en WSL).
+2. Ejecuta el siguiente comando:
+
+   ```sh
+   curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
+   ```
+
+3. Sigue las instrucciones que aparecen en pantalla.
+4. Una vez instalado, abre una terminal nueva para asegurarte de que Nix está disponible.
+
+> Más información y guía oficial: [https://docs.determinate.systems/](https://docs.determinate.systems/)
+
+## 📁 Paso 2: Descargar este proyecto
 
 1. Entra a la página del proyecto en GitHub.
 2. Haz clic en el botón verde "Code" → "Download ZIP".
@@ -17,7 +37,7 @@ Está pensado para que personas sin experiencia en programación puedan usarlo f
 
 No necesitas instalar Git ni usar comandos para esto.
 
-## 🔧 Paso 2: Configurar la conexión a MetaTrader5
+## 🔧 Paso 3: Configurar la conexión a MetaTrader5
 
 1. Entra en la carpeta que descomprimiste.
 2. Haz una copia del archivo `.env.example` y renómbralo como `.env`.
@@ -29,7 +49,7 @@ No necesitas instalar Git ni usar comandos para esto.
 
    Asegúrate de que la ruta apunte al ejecutable de MetaTrader 5.
 
-## 🧪 Paso 3: Activar el entorno de desarrollo
+## 🧪 Paso 4: Activar el entorno de desarrollo
 
 1. Abre la terminal de tu preferencia (por ejemplo, CMD o PowerShell).
 2. Navega a la carpeta del proyecto:
@@ -44,7 +64,7 @@ No necesitas instalar Git ni usar comandos para esto.
    poetry install
    ```
 
-## ▶️ Paso 4: Ejecutar el script
+## ▶️ Paso 5: Ejecutar el script
 
 Una vez dentro del entorno, ejecuta:
 
