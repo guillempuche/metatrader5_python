@@ -1,102 +1,177 @@
-# 🐍 Entorno reproducible para MetaTrader5 con Python 3.8
+# 🐍 Guía Simplificada para Usar MetaTrader5 con Python en Windows y macOS
 
-## 🖥️ Paso previo: Preparar WSL en Windows
+Esta guía está diseñada para que cualquier persona, incluso sin experiencia en programación, pueda configurar y usar un proyecto de MetaTrader5 con Python en Windows o macOS. Vamos a instalar Python 3.8, Poetry y todo lo necesario de forma sencilla y paso a paso. ¡Empecemos!
 
-1. Abre el menú de Windows y busca **"Características de Windows"**.
-2. Activa la opción **"Subsistema de Windows para Linux (WSL)"**.
-3. Reinicia tu equipo si es necesario.
-4. Ve a la Microsoft Store, busca **Ubuntu** e instálalo.
-5. Abre Ubuntu desde el menú Inicio y deja que termine la configuración inicial.
+## ✅ Requisitos Previos
 
-## ✅ Requisitos previos
+- Tener **MetaTrader 5** instalado en tu computadora.
+- Una carpeta donde guardar el proyecto (te sugerimos usar `Documentos/MT5-Python`).
 
-- Un PC con **Windows 10 o 11**
-- Tener instalado **MetaTrader 5**
+## 🟦 Paso 1: Instalar Python 3.8
 
-## 🟦 Paso 1: Instalar Nix en Windows
+Python es el lenguaje que usaremos para conectar con MetaTrader5. Necesitamos la versión 3.8 porque es la que funciona mejor con este proyecto.
 
-Antes de continuar, necesitas instalar Nix en tu PC con Windows. La forma más sencilla y recomendada es usando **Determinate Nix**.
+### Para Windows
 
-1. Abre una terminal (por ejemplo, Ubuntu en WSL).
-2. Ejecuta el siguiente comando:
+1. Visita [python.org](https://www.python.org/downloads/release/python-3810/).
+2. Descarga el instalador para Windows (busca "Windows x86-64 executable installer").
+3. Abre el instalador y **marca la casilla "Add Python 3.8 to PATH"** antes de presionar "Install Now".
+4. Cuando termine, abre el "Símbolo del sistema" (busca "cmd" en el menú de inicio) y escribe:
 
-   ```sh
-   curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
+   ```
+   python --version
    ```
 
-3. Sigue las instrucciones que aparecen en pantalla.
-4. Una vez instalado, abre una terminal nueva para asegurarte de que Nix está disponible.
+   Deberías ver algo como "Python 3.8.x". Si no funciona, reinicia tu computadora y prueba de nuevo.
 
-> Más información y guía oficial: [https://docs.determinate.systems/](https://docs.determinate.systems/)
+### Para macOS
 
-## 📁 Paso 2: Descargar este proyecto
+1. Abre la Terminal (busca "Terminal" en Spotlight o en Launchpad).
+2. Necesitamos una herramienta llamada Homebrew para instalar Python fácilmente. Si no la tienes, copia y pega esto en la Terminal:
 
-1. Entra a la página del proyecto en GitHub.
-2. Haz clic en el botón verde "Code" → "Download ZIP".
-3. Extrae el archivo ZIP en tu carpeta de documentos (por ejemplo: `Documentos/MT5-Python`).
-
-No necesitas instalar Git ni usar comandos para esto.
-
-## 🔧 Paso 3: Configurar la conexión a MetaTrader5
-
-1. Entra en la carpeta que descomprimiste.
-2. Haz una copia del archivo `.env.example` y renómbralo como `.env`.
-3. Abre `.env` con un editor de texto (como Notepad) y modifica la siguiente línea:
-
-   ```env
-   MT5_PATH=/mnt/c/Program Files/MetaTrader 5/terminal64.exe
+   ```
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
 
-   Asegúrate de que la ruta apunte al ejecutable de MetaTrader 5.
+   Sigue las instrucciones que aparecen.
+3. Ahora instala Python 3.8 con:
 
-## 🧪 Paso 4: Activar el entorno de desarrollo
+   ```
+   brew install python@3.8
+   ```
 
-1. Abre la terminal de tu preferencia (por ejemplo, CMD o PowerShell).
+4. Verifica que se instaló escribiendo:
+
+   ```
+   python3.8 --version
+   ```
+
+   Deberías ver "Python 3.8.x".
+
+## 🟦 Paso 2: Instalar Poetry
+
+Poetry es una herramienta que nos ayuda a organizar las piezas que necesita el proyecto. Es súper fácil de instalar.
+
+### Para Windows
+
+1. Abre el "Símbolo del sistema" (cmd).
+2. Copia y pega este comando:
+
+   ```
+   (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
+   ```
+
+3. Cierra el "Símbolo del sistema" y ábrelo de nuevo.
+4. Escribe:
+
+   ```
+   poetry --version
+   ```
+
+   Si ves un número de versión, ¡todo está bien!
+
+### Para macOS
+
+1. Abre la Terminal.
+2. Copia y pega este comando:
+
+   ```
+   curl -sSL https://install.python-poetry.org | python3 -
+   ```
+
+3. Para asegurarte de que Poetry funcione, añade esta línea (puedes necesitarlo):
+
+   ```
+   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+   source ~/.zshrc
+   ```
+
+4. Verifica con:
+
+   ```
+   poetry --version
+   ```
+
+   Si aparece un número de versión, ¡listo!
+
+## 📁 Paso 3: Descargar el Proyecto
+
+1. Ve a la página del proyecto en GitHub (donde está el código).
+2. Haz clic en el botón verde que dice **"Code"** y luego en **"Download ZIP"**.
+3. Descomprime el archivo ZIP en una carpeta fácil de encontrar, como:
+   - Windows: `C:\Users\TuUsuario\Documentos\MT5-Python`
+   - macOS: `~/Documentos/MT5-Python`
+
+## 🔧 Paso 4: Configurar la Conexión a MetaTrader5
+
+El proyecto necesita saber dónde está MetaTrader5 en tu computadora. Vamos a configurarlo.
+
+1. Dentro de la carpeta del proyecto, busca un archivo llamado `.env.example`.
+2. Haz una copia de este archivo y renómbralo como `.env` (elimina el ".example").
+3. Abre el archivo `.env` con un editor de texto:
+   - Windows: Usa Notepad (clic derecho > "Abrir con" > "Bloc de notas").
+   - macOS: Usa TextEdit.
+4. Cambia la línea `MT5_PATH` para que apunte a donde está MetaTrader5:
+   - **Windows**: Por defecto es:
+
+     ```
+     MT5_PATH=C:/Program Files/MetaTrader 5/terminal64.exe
+     ```
+
+     Si lo instalaste en otro lugar, ajusta la ruta.
+   - **macOS**: Si usas Wine o Parallels para correr MetaTrader5, pon la ruta correcta (por ejemplo, la ruta dentro de Wine).
+5. Opcional: Si tienes una cuenta de MetaTrader5, puedes añadir tu `LOGIN` y `PASSWORD` en el archivo `.env`.
+6. Guarda el archivo y ciérralo.
+
+## 🧪 Paso 5: Preparar el Entorno
+
+Ahora vamos a instalar las herramientas que el proyecto necesita.
+
+1. Abre una terminal:
+   - **Windows**: Busca "cmd" en el menú de inicio.
+   - **macOS**: Abre la Terminal.
 2. Navega a la carpeta del proyecto:
+   - **Windows**:
 
-   ```sh
-   cd "C:\Usuarios\TuUsuario\Documentos\MT5-Python"
+     ```
+     cd C:\Users\TuUsuario\Documentos\MT5-Python
+     ```
+
+   - **macOS**:
+
+     ```
+     cd ~/Documentos/MT5-Python
+     ```
+
+3. Instala todo lo necesario con:
+
    ```
-
-3. Ejecuta el comando para preparar el entorno (ajusta según tu gestor de entornos preferido, por ejemplo, con Poetry o pip):
-
-   ```sh
    poetry install
    ```
 
-## ▶️ Paso 5: Ejecutar el script
+   Esto puede tardar un poco, pero solo necesitas hacerlo una vez.
 
-Una vez dentro del entorno, ejecuta:
+## ▶️ Paso 6: Ejecutar el Script
 
-```sh
-poetry run python main.py
-```
+¡Ya casi terminamos! Vamos a probar el proyecto.
 
-## 📄 Estructura del proyecto
+1. En la misma terminal, escribe:
 
-```
-mt5-python-project/
-├── flake.nix           # Configuración del entorno con Nix
-├── pyproject.toml      # Lista de librerías usadas con Poetry
-├── main.py             # Script principal que se conecta a MT5
-├── .env.example        # Plantilla de configuración
-└── README.md           # Esta guía
-```
+   ```
+   poetry run python main.py
+   ```
 
-## 📚 ¿Qué hace este proyecto?
+2. Si todo está bien, verás mensajes que dicen que se conectó a MetaTrader5 y algunos datos del mercado (como el RSI de EURUSD).
 
-- Carga MetaTrader 5 desde el script Python
-- Extrae datos de mercado
-- Puede graficar, analizar o guardar información en Excel
-- Todo dentro de un entorno portátil y reproducible
+## 📚 ¿Qué Hace Este Proyecto?
 
-## 🧠 Consejos útiles
+- Se conecta a tu MetaTrader5.
+- Toma datos del mercado, como precios de EURUSD.
+- Calcula un indicador (RSI) y te dice si el mercado está "barato" (sobreventa), "caro" (sobrecompra) o normal.
 
-- Si al ejecutar ves un error sobre `.env`, asegúrate de que el archivo `.env` exista y contenga la ruta correcta a MT5.
-- Si tu MetaTrader está en otro disco o carpeta, ajusta la ruta en `.env` usando la letra de tu unidad correspondiente.
+## 🧠 Consejos Útiles
 
-## 🚀 ¿Y después?
-
-Puedes modificar `main.py` para hacer análisis, gráficos o automatizaciones con tus datos financieros.
-
-Este entorno está preparado para usarse sin conocimientos técnicos.
+- **Error con `.env`**: Si ves un mensaje sobre `.env`, revisa que el archivo exista y que la ruta de `MT5_PATH` sea correcta.
+- **Windows**: Si MetaTrader5 está en otra unidad (como D:), cambia la ruta en `.env` a algo como `D:/Program Files/MetaTrader 5/terminal64.exe`.
+- **macOS**: Si usas Wine o Parallels, asegúrate de que la ruta en `.env` sea válida para tu setup.
+- Si algo no funciona, revisa que los comandos anteriores hayan salido bien.
