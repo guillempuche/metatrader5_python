@@ -1,0 +1,20 @@
+---
+description: Programar scripts para MetaTrader5
+alwaysApply: false
+---
+# Cursor Rules para Proyecto MetaTrader5 + Python + Nix
+
+Codigo y documentación en español.
+
+## Estructura del Proyecto
+
+- `mt5_demo/`: Contiene el código Python principal
+- `mt5_demo/flake.nix`: Configuración de entorno Nix con Python 3.8
+
+## Convenciones de Código
+
+### Python
+
+- Usar Python 3.8
+- Importar MetaTrader5 como `import MetaTrader5 as mt5`
+- Comentar en español para consistencia con el código existente

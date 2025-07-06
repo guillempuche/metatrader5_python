@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "mt5-demo"
+version = "0.0.1"
+description = "Script de trading amb MetaTrader5 i anàlisi d'indicadors tècnics com RSI"
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "main" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+MetaTrader5 = "^5.0"
+pandas = "^2.2"
+numpy = "^1.26"
+matplotlib = "^3.8"
+python-dotenv = "^1.0"
+
+[tool.poetry.scripts]
+mt5-demo = "main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
